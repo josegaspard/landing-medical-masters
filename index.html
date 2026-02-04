@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth antialiased">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="theme-color" content="#163a83">
+    
+    <!-- SEO & METADATA -->
+    <title>Medical Platform™ | Next-Gen Clinical Ecosystem</title>
+    <meta name="description" content="La plataforma médica definitiva. Sincronización clínica en tiempo real, diagnósticos asistidos por IA y gestión hospitalaria integral.">
+    
+    <!-- TAILWIND CSS (CDN) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- GOOGLE FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- TAILWIND CONFIGURATION -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', '"MADE TOMMY"', 'system-ui', 'sans-serif'],
+                    },
+                    colors: {
+                        medical: {
+                            primary: '#163a83',   // Deep Blue
+                            secondary: '#00768b', // Teal Blue
+                            light: '#aed3d9',     // Soft Cyan
+                            accent: '#839ed5',    // Periwinkle
+                            surface: '#f8fafc',   // Ultra light gray
+                            dark: '#0b1d45',      // Night Blue
+                            success: '#10b981',
+                            warning: '#f59e0b'
+                        }
+                    },
+                    boxShadow: {
+                        'glass': '0 8px 32px 0 rgba(31, 38, 135, 0.15)',
+                        'glass-hover': '0 8px 32px 0 rgba(31, 38, 135, 0.25)',
+                        'neon': '0 0 20px rgba(0, 118, 139, 0.3)',
+                        'inner-light': 'inset 0 2px 4px 0 rgba(255, 255, 255, 0.3)'
+                    },
+                    backgroundImage: {
+                        'grid-pattern': "url(\"data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h40v40H0V0zm1 1h38v38H1V1z' fill='%23163a83' fill-opacity='0.03' fill-rule='evenodd'/%3E%3C/svg%3E\")",
+                        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+                    },
+                    animation: {
+                        'blob': 'blob 7s infinite',
+                        'float-slow': 'float 6s ease-in-out infinite',
+                        'float-medium': 'float 4s ease-in-out infinite',
+                        'spin-slow': 'spin 12s linear infinite',
+                        'slide-up': 'slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                        'scroll': 'scroll 40s linear infinite',
+                    },
+                    keyframes: {
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-15px)' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(40px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        },
+                        scroll: {
+                            '0%': { transform: 'translateX(0)' },
+                            '100%': { transform: 'translateX(-50%)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- CUSTOM CSS -->
+    <style>
+        @font-face {
+            font-family: 'MADE TOMMY';
+            src: local('Plus Jakarta Sans Bold');
+            font-weight: 700;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+            border: 2px solid #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #163a83;
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+        }
+        
+        .glass-panel-dark {
+            background: rgba(11, 29, 69, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        img {
+            transition: opacity 0.5s ease-in-out;
+        }
+    </style>
+</head>
+<body class="font-sans text-slate-800 bg-slate-50 overflow-x-hidden relative selection:bg-medical-secondary selection:text-white">
+
+    <!-- BACKGROUND BLOBS -->
+    <div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
+        <div class="absolute top-[-10%] left-[-10%] w-96 h-96 bg-medical-light/30 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob"></div>
+        <div class="absolute top-[-10%] right-[-10%] w-96 h-96 bg-medical-accent/30 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob animation-delay-2000"></div>
+        <div class="absolute bottom-[-20%] left-[20%] w-96 h-96 bg-medical-secondary/20 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob animation-delay-4000"></div>
+    </div>
+
+    <!-- NAVIGATION BAR -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-500 top-0 border-b border-transparent">
+        <div class="absolute inset-0 bg-white/0 backdrop-blur-none transition-all duration-500" id="nav-bg"></div>
+        <div class="container mx-auto px-6 lg:px-12 relative z-10">
+            <div class="flex justify-between items-center h-20 md:h-24">
+                
+                <!-- Logo -->
+                <a href="#" class="flex items-center gap-2 group">
+                    <div class="relative w-auto h-10 md:h-12 overflow-hidden">
+                        <img src="https://i.imgur.com/te3R5Ud.png" alt="Logo White" class="h-full object-contain transition-transform duration-500 group-hover:scale-105 logo-white">
+                        <img src="https://i.imgur.com/ueh73vr.png" alt="Logo Blue" class="h-full object-contain absolute top-0 left-0 opacity-0 transition-opacity duration-500 logo-blue">
+                    </div>
+                </a>
+
+                <!-- Desktop Menu -->
+                <div class="hidden lg:flex items-center space-x-1">
+                    <div class="flex items-center bg-white/10 backdrop-blur-md rounded-full p-1 border border-white/20 mr-6 nav-pill-container transition-all duration-300">
+                        <a href="#ecosistema" class="px-5 py-2 text-sm font-medium text-white hover:text-white rounded-full hover:bg-white/20 transition-all nav-item">Ecosistema</a>
+                        <a href="#features" class="px-5 py-2 text-sm font-medium text-white hover:text-white rounded-full hover:bg-white/20 transition-all nav-item">Tecnología</a>
+                        <a href="#workflow" class="px-5 py-2 text-sm font-medium text-white hover:text-white rounded-full hover:bg-white/20 transition-all nav-item">Proceso</a>
+                        <a href="#reviews" class="px-5 py-2 text-sm font-medium text-white hover:text-white rounded-full hover:bg-white/20 transition-all nav-item">Reseñas</a>
+                    </div>
+                    
+                    <a href="https://app.medicalplatform.com/login" class="relative overflow-hidden group bg-medical-secondary hover:bg-white text-white hover:text-medical-primary font-bold py-3 px-8 rounded-full transition-all duration-300 shadow-[0_0_20px_rgba(0,118,139,0.4)] hover:shadow-[0_0_30px_rgba(255,255,255,0.6)] border border-transparent hover:border-medical-primary">
+                        <span class="relative z-10 flex items-center gap-2 text-sm uppercase tracking-wider">
+                            Entrar a la App <i class="fa-solid fa-arrow-right-long transition-transform group-hover:translate-x-1"></i>
+                        </span>
+                    </a>
+                </div>
+
+                <!-- Mobile Trigger -->
+                <button class="lg:hidden text-white text-3xl focus:outline-none relative z-[60]" id="mobile-toggle">
+                    <i class="fa-solid fa-bars-staggered"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu Fullscreen -->
+        <div id="mobile-menu" class="fixed inset-0 bg-medical-dark/95 backdrop-blur-xl z-40 transform translate-x-full transition-transform duration-500 flex flex-col items-center justify-center space-y-8">
+            <a href="#ecosistema" class="text-3xl text-white font-light hover:text-medical-light transition-colors mobile-link">Ecosistema</a>
+            <a href="#features" class="text-3xl text-white font-light hover:text-medical-light transition-colors mobile-link">Módulos</a>
+            <a href="#pricing" class="text-3xl text-white font-light hover:text-medical-light transition-colors mobile-link">Planes</a>
+            <hr class="w-24 border-white/20">
+            <a href="https://app.medicalplatform.com/login" class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-medical-light to-white">
+                Acceder a Plataforma
+            </a>
+        </div>
+    </nav>
+
+    <!-- 1️⃣ HERO SECTION (MODIFICADO) -->
+    <header class="relative min-h-screen flex items-end pt-20 overflow-hidden bg-medical-primary">
+        <div class="absolute inset-0 z-0">
+            <div class="absolute inset-0 bg-gradient-to-br from-medical-dark via-medical-primary to-medical-secondary opacity-90"></div>
+            <div class="absolute inset-0 bg-grid-pattern opacity-10"></div>
+            <video autoplay muted loop playsinline class="w-full h-full object-cover opacity-20 mix-blend-overlay">
+                <source src="https://assets.mixkit.co/videos/preview/mixkit-digital-animation-of-a-glitch-heart-heartbeat-32454-large.mp4" type="video/mp4">
+            </video>
+        </div>
+
+        <div class="container mx-auto px-6 lg:px-12 relative z-10 h-full">
+            <div class="flex flex-col lg:flex-row items-center h-full">
+                
+                <!-- Left Content (Texto) -->
+                <div class="w-full lg:w-1/2 space-y-8 py-12 lg:py-24 opacity-0 animate-slide-up relative z-20" style="animation-delay: 0.2s;">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm">
+                        <span class="flex h-2 w-2 relative">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                        </span>
+                        <span class="text-xs font-bold uppercase tracking-widest text-medical-light">v4.0 Live System</span>
+                    </div>
+
+                    <h1 class="text-5xl lg:text-7xl font-bold text-white leading-[1.1] tracking-tight">
+                        Siempre una <br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-medical-light via-white to-medical-accent">Segunda Opinión.</span>
+                    </h1>
+
+                    <p class="text-lg lg:text-xl text-slate-300 font-light max-w-xl leading-relaxed">
+                        Orquestación clínica inteligente. Conectamos talento médico, datos de pacientes y flujos financieros en una única interfaz segura y elegante.
+                    </p>
+
+                    <!-- MODIFICACIÓN: SOCIAL PROOF AVATARS -->
+                    <div class="flex items-center gap-4 pt-2 pb-2">
+                        <div class="flex -space-x-3">
+                            <img class="w-10 h-10 rounded-full border-2 border-medical-dark object-cover" src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=150&h=150&fit=crop" alt="User 1">
+                            <img class="w-10 h-10 rounded-full border-2 border-medical-dark object-cover" src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=150&h=150&fit=crop" alt="User 2">
+                            <img class="w-10 h-10 rounded-full border-2 border-medical-dark object-cover" src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=150&h=150&fit=crop" alt="User 3">
+                            <img class="w-10 h-10 rounded-full border-2 border-medical-dark object-cover" src="https://randomuser.me/api/portraits/men/32.jpg" alt="User 4">
+                            <div class="w-10 h-10 rounded-full border-2 border-medical-dark bg-medical-secondary text-white flex items-center justify-center text-xs font-bold">+5k</div>
+                        </div>
+                        <div class="flex flex-col">
+                            <div class="flex text-yellow-400 text-[10px] gap-0.5">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            </div>
+                            <span class="text-sm font-medium text-white">Usuarios activos</span>
+                        </div>
+                    </div>
+                    <!-- FIN MODIFICACIÓN -->
+
+                    <div class="flex flex-col sm:flex-row gap-5 pt-4">
+                        <a href="https://app.medicalplatform.com/login" class="inline-flex items-center justify-center px-8 py-4 text-base font-bold text-medical-primary bg-white rounded-xl shadow-[0_0_30px_rgba(255,255,255,0.3)] hover:shadow-[0_0_50px_rgba(255,255,255,0.5)] hover:-translate-y-1 transition-all duration-300">
+                            <span>Entrar a la aplicación</span>
+                            <i class="fa-solid fa-arrow-right ml-3"></i>
+                        </a>
+                        
+                        <button class="inline-flex items-center justify-center px-8 py-4 text-base font-medium text-white border border-white/20 rounded-xl hover:bg-white/10 transition-all backdrop-blur-md group">
+                            <i class="fa-solid fa-circle-play mr-3 text-medical-light group-hover:scale-110 transition-transform"></i>
+                            Demo Interactiva
+                        </button>
+                    </div>
+
+                    <!-- Mini Stats -->
+                    <div class="pt-8 flex gap-8 border-t border-white/10">
+                        <div>
+                            <p class="text-3xl font-bold text-white">98<span class="text-medical-light text-xl">%</span></p>
+                            <p class="text-xs text-slate-400 uppercase tracking-wider">Precisión Dx</p>
+                        </div>
+                        <div>
+                            <p class="text-3xl font-bold text-white">15<span class="text-medical-light text-xl">m+</span></p>
+                            <p class="text-xs text-slate-400 uppercase tracking-wider">Pacientes</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Content (IMAGEN GIGANTE + CARDS) -->
+                <div class="w-full lg:w-1/2 relative h-[600px] lg:h-screen flex items-end justify-center lg:justify-end opacity-0 animate-slide-up" style="animation-delay: 0.5s;">
+                    
+                    <!-- Glow Detrás -->
+                    <div class="absolute bottom-0 right-10 w-[80%] h-[70%] bg-medical-secondary/20 rounded-full filter blur-[100px] animate-pulse"></div>
+
+                    <div class="relative z-10 w-full h-full flex items-end justify-center lg:justify-end">
+                        
+                        <!-- IMAGEN PRINCIPAL (Modificada: Más grande y sin hueco abajo) -->
+                        <img 
+                            src="https://i.imgur.com/YqgQSDV.png" 
+                            alt="Doctora Especialista" 
+                            class="absolute bottom-0 h-auto w-auto max-h-[85vh] lg:max-h-[115vh] lg:scale-[1.35] lg:origin-bottom-right lg:-right-10 object-contain drop-shadow-2xl z-10 pointer-events-none"
+                        >
+
+                        <!-- 1. Tarjeta Flotante Izquierda (Ritmo) -->
+                        <div class="absolute top-[30%] left-0 lg:left-0 glass-panel p-4 rounded-2xl animate-float-slow z-20 max-w-[160px] border-t border-white/50 shadow-xl">
+                            <div class="flex items-center justify-between mb-2">
+                                <div class="p-2 bg-red-100 rounded-lg text-red-500"><i class="fa-solid fa-heart-pulse"></i></div>
+                                <span class="text-xs font-bold text-gray-500">Live</span>
+                            </div>
+                            <p class="text-xl font-bold text-gray-800">72 <span class="text-sm font-normal text-gray-500">bpm</span></p>
+                            <svg class="w-full h-8 text-red-400" viewBox="0 0 100 20" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M0 10 Q10 10, 15 5 T25 10 T35 15 T45 10 T55 5 T65 10 T75 15 T85 10 T100 10" />
+                            </svg>
+                        </div>
+
+                        <!-- 2. Tarjeta Flotante Derecha Abajo (Expediente) -->
+                        <div class="absolute bottom-24 right-4 lg:right-12 glass-panel p-4 rounded-2xl animate-float-medium z-30 flex items-center gap-3 border-l-4 border-medical-success shadow-2xl border-white/40 border-t">
+                            <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center text-green-600 shadow-sm">
+                                <i class="fa-solid fa-check"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm font-bold text-gray-800">Expediente Listo</p>
+                                <p class="text-xs text-gray-500">Sincronizado</p>
+                            </div>
+                        </div>
+
+                        <!-- 3. La Aplicación (Derecha Arriba) -->
+                        <div class="absolute top-[20%] right-0 lg:-right-8 glass-panel p-3 rounded-xl animate-float-slow z-20 flex flex-col gap-2 border border-white/50 shadow-lg backdrop-blur-xl" style="animation-delay: 1.5s;">
+                            <div class="flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-lg bg-medical-primary flex items-center justify-center text-white shadow-md">
+                                    <i class="fa-solid fa-mobile-screen-button"></i>
+                                </div>
+                                <div>
+                                    <p class="text-xs font-bold text-gray-800">Medical App</p>
+                                    <p class="text-[10px] text-green-600 font-bold"><span class="w-1.5 h-1.5 bg-green-500 rounded-full inline-block mr-1"></span>Activa</p>
+                                </div>
+                            </div>
+                            <div class="flex items-end justify-between h-6 w-full gap-1 mt-1 px-1">
+                                <div class="w-1.5 bg-blue-200 h-[40%] rounded-t-sm"></div>
+                                <div class="w-1.5 bg-blue-300 h-[70%] rounded-t-sm"></div>
+                                <div class="w-1.5 bg-medical-secondary h-[50%] rounded-t-sm"></div>
+                                <div class="w-1.5 bg-medical-primary h-[90%] rounded-t-sm"></div>
+                                <div class="w-1.5 bg-blue-300 h-[60%] rounded-t-sm"></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- TICKER INFINITO (MODIFICADO para bucle perfecto) -->
+    <div class="bg-white border-b border-gray-100 py-6 overflow-hidden relative">
+        <div class="absolute left-0 top-0 h-full w-24 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none"></div>
+        <div class="absolute right-0 top-0 h-full w-24 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none"></div>
+        
+        <!-- El contenedor interior tiene ancho doble (200%) para acomodar dos series idénticas -->
+        <div class="flex w-[200%] animate-scroll hover:pause">
+            <!-- Serie 1 -->
+            <div class="flex w-1/2 justify-around items-center">
+                <span class="text-xl font-bold text-gray-400 flex items-center gap-2 grayscale hover:grayscale-0 transition-all"><i class="fa-solid fa-hospital"></i> Mayo Clinic</span>
+                <span class="text-xl font-bold text-gray-400 flex items-center gap-2 grayscale hover:grayscale-0 transition-all"><i class="fa-solid fa-staff-snake"></i> Johns Hopkins</span>
+                <span class="text-xl font-bold text-gray-400 flex items-center gap-2 grayscale hover:grayscale-0 transition-all"><i class="fa-solid fa-user-doctor"></i> Cleveland Clinic</span>
+                <span class="text-xl font-bold text-gray-400 flex items-center gap-2 grayscale hover:grayscale-0 transition-all"><i class="fa-solid fa-heart-pulse"></i> Cedars-Sinai</span>
+                <span class="text-xl font-bold text-gray-400 flex items-center gap-2 grayscale hover:grayscale-0 transition-all"><i class="fa-solid fa-dna"></i> Stanford Med</span>
+                <span class="text-xl font-bold text-gray-400 flex items-center gap-2 grayscale hover:grayscale-0 transition-all"><i class="fa-solid fa-hospital-user"></i> Mass General</span>
+            </div>
+            <!-- Serie 2 (Duplicada Exacta) -->
+            <div class="flex w-1/2 justify-around items-center">
+                <span class="text-xl font-bold text-gray-400 flex items-center gap-2 grayscale hover:grayscale-0 transition-all"><i class="fa-solid fa-hospital"></i> Mayo Clinic</span>
+                <span class="text-xl font-bold text-gray-400 flex items-center gap-2 grayscale hover:grayscale-0 transition-all"><i class="fa-solid fa-staff-snake"></i> Johns Hopkins</span>
+                <span class="text-xl font-bold text-gray-400 flex items-center gap-2 grayscale hover:grayscale-0 transition-all"><i class="fa-solid fa-user-doctor"></i> Cleveland Clinic</span>
+                <span class="text-xl font-bold text-gray-400 flex items-center gap-2 grayscale hover:grayscale-0 transition-all"><i class="fa-solid fa-heart-pulse"></i> Cedars-Sinai</span>
+                <span class="text-xl font-bold text-gray-400 flex items-center gap-2 grayscale hover:grayscale-0 transition-all"><i class="fa-solid fa-dna"></i> Stanford Med</span>
+                <span class="text-xl font-bold text-gray-400 flex items-center gap-2 grayscale hover:grayscale-0 transition-all"><i class="fa-solid fa-hospital-user"></i> Mass General</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <main class="relative z-10 bg-slate-50">
+        
+        <!-- 2️⃣ QUÉ ES LA PLATAFORMA (BENTO) -->
+        <section id="ecosistema" class="py-24 lg:py-32 relative overflow-hidden">
+            <div class="container mx-auto px-6">
+                <div class="text-center max-w-4xl mx-auto mb-20">
+                    <span class="text-medical-secondary font-bold tracking-widest text-xs uppercase mb-4 block">El Nuevo Estándar</span>
+                    <h2 class="text-4xl lg:text-5xl font-bold text-medical-primary mb-6">Un sistema operativo para la salud moderna</h2>
+                    <p class="text-xl text-slate-500 font-light leading-relaxed">
+                        Eliminamos las barreras entre la tecnología y la atención humana. Nuestra infraestructura conecta <span class="font-bold text-medical-primary">laboratorios</span>, <span class="font-bold text-medical-primary">especialistas</span> y <span class="font-bold text-medical-primary">pacientes</span> en un flujo continuo de información segura.
+                    </p>
+                </div>
+
+                <!-- BENTO GRID -->
+                <div class="grid grid-cols-1 md:grid-cols-6 lg:grid-cols-4 gap-6 h-auto">
+                    
+                    <!-- Large Feature Block -->
+                    <div class="md:col-span-3 lg:col-span-2 row-span-2 bg-white rounded-3xl p-8 shadow-glass border border-slate-100 relative overflow-hidden group hover:shadow-xl transition-all duration-300">
+                        <div class="absolute top-0 right-0 w-64 h-64 bg-blue-50 rounded-full -mr-16 -mt-16 transition-transform group-hover:scale-150 duration-700"></div>
+                        <div class="relative z-10">
+                            <div class="w-16 h-16 bg-medical-primary rounded-2xl flex items-center justify-center text-white text-2xl mb-8 shadow-lg shadow-medical-primary/30">
+                                <i class="fa-solid fa-network-wired"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4">Interconexión Neural</h3>
+                            <p class="text-gray-500 leading-relaxed mb-6">
+                                Algoritmos de enrutamiento clínico que dirigen cada caso al especialista más adecuado en milisegundos. La plataforma aprende de cada interacción para mejorar la precisión diagnóstica.
+                            </p>
+                            <div class="bg-slate-50 rounded-xl p-4 border border-slate-100 flex items-center gap-4">
+                                <div class="flex -space-x-3">
+                                    <img class="w-10 h-10 rounded-full border-2 border-white object-cover" src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=150&h=150&fit=crop" alt="Doctor 1">
+                                    <img class="w-10 h-10 rounded-full border-2 border-white object-cover" src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=150&h=150&fit=crop" alt="Doctor 2">
+                                    <img class="w-10 h-10 rounded-full border-2 border-white object-cover" src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=150&h=150&fit=crop" alt="Doctor 3">
+                                    <div class="w-10 h-10 rounded-full border-2 border-white bg-medical-secondary text-white flex items-center justify-center text-xs font-bold">+5k</div>
+                                </div>
+                                <span class="text-sm font-bold text-medical-secondary">Red de +5,000 expertos</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Medium Block 1 -->
+                    <div class="md:col-span-3 lg:col-span-2 bg-gradient-to-br from-medical-primary to-medical-dark rounded-3xl p-8 text-white shadow-xl relative overflow-hidden group">
+                        <i class="fa-solid fa-shield-virus absolute -bottom-4 -right-4 text-9xl text-white/5 group-hover:text-white/10 transition-colors"></i>
+                        <div class="relative z-10">
+                            <div class="flex justify-between items-start mb-6">
+                                <h3 class="text-xl font-bold">Seguridad Militar</h3>
+                                <i class="fa-solid fa-lock text-medical-light text-xl"></i>
+                            </div>
+                            <p class="text-blue-100 text-sm leading-relaxed">
+                                Encriptación AES-256 en reposo y tránsito. Cumplimiento total HIPAA, GDPR y HITECH. Sus datos son inviolables.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Medium Block 2 -->
+                    <div class="md:col-span-2 lg:col-span-1 bg-white rounded-3xl p-8 shadow-sm border border-slate-100 group hover:border-medical-accent/50 transition-colors">
+                        <div class="w-12 h-12 bg-teal-50 rounded-xl flex items-center justify-center text-teal-600 mb-6 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-bolt"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-900 mb-2">Velocidad Real</h3>
+                        <p class="text-sm text-gray-500">Latencia &lt; 20ms en videoconsultas HD.</p>
+                    </div>
+
+                    <!-- Medium Block 3 -->
+                    <div class="md:col-span-2 lg:col-span-1 bg-white rounded-3xl p-8 shadow-sm border border-slate-100 group hover:border-medical-accent/50 transition-colors">
+                        <div class="w-12 h-12 bg-purple-50 rounded-xl flex items-center justify-center text-purple-600 mb-6 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-900 mb-2">AI Assistant</h3>
+                        <p class="text-sm text-gray-500">Pre-diagnóstico y triaje automatizado.</p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- 3️⃣ VIDEO SHOWCASE -->
+        <section id="features" class="py-24 bg-slate-100/50">
+            <div class="container mx-auto px-6">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <h2 class="text-4xl font-bold text-medical-primary mb-4">Experiencia Inmersiva</h2>
+                    <p class="text-slate-600 text-lg">
+                        Descubre cómo nuestra interfaz intuitiva transforma la gestión clínica.
+                    </p>
+                </div>
+                
+                <div class="relative w-full max-w-5xl mx-auto rounded-3xl overflow-hidden shadow-2xl border-4 border-white bg-black group">
+                    <video
+                        id="demo-video"
+                        src="https://gestomarketing.com.mx/wp-content/uploads/2026/01/Video_de_Landing_Page_Hiperrealista.mp4"
+                        class="w-full h-full object-cover"
+                        autoplay muted loop playsinline
+                        onmouseover="this.controls=true"
+                        onmouseout="this.controls=false"
+                    >
+                    </video>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4️⃣ WORKFLOW -->
+        <section id="workflow" class="py-24 bg-white relative">
+            <div class="container mx-auto px-6">
+                <div class="flex flex-col lg:flex-row gap-16">
+                    <!-- Sticky Sidebar -->
+                    <div class="lg:w-1/3">
+                        <div class="sticky top-32">
+                            <h2 class="text-4xl font-bold text-medical-primary mb-6">Implementación sin fricción</h2>
+                            <p class="text-slate-600 mb-8 leading-relaxed">
+                                Sabemos que cambiar de software es doloroso. Por eso hemos creado un proceso de migración asistida que garantiza <span class="font-bold">cero pérdida de datos</span> y una curva de aprendizaje mínima.
+                            </p>
+                            <a href="https://app.medicalplatform.com/demo" class="group inline-flex items-center gap-3 text-lg font-bold text-medical-secondary">
+                                Agendar migración <span class="bg-blue-50 p-2 rounded-full group-hover:translate-x-2 transition-transform"><i class="fa-solid fa-arrow-right"></i></span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Timeline Content -->
+                    <div class="lg:w-2/3 space-y-12 relative pl-8 border-l-2 border-slate-100">
+                        <div class="relative group">
+                            <span class="absolute -left-[41px] top-0 w-5 h-5 rounded-full bg-white border-4 border-medical-secondary group-hover:scale-125 transition-transform"></span>
+                            <div class="bg-slate-50 p-8 rounded-2xl group-hover:bg-white group-hover:shadow-xl transition-all border border-transparent group-hover:border-slate-100">
+                                <span class="text-xs font-bold text-medical-secondary uppercase tracking-widest mb-2 block">Paso 01</span>
+                                <h3 class="text-2xl font-bold text-gray-900 mb-3">Onboarding & Configuración</h3>
+                                <p class="text-gray-500">Personalizamos la plataforma con tu identidad corporativa (Marca blanca). Configuramos las sedes, consultorios y especialidades.</p>
+                            </div>
+                        </div>
+
+                        <div class="relative group">
+                            <span class="absolute -left-[41px] top-0 w-5 h-5 rounded-full bg-white border-4 border-medical-light group-hover:scale-125 transition-transform"></span>
+                            <div class="bg-slate-50 p-8 rounded-2xl group-hover:bg-white group-hover:shadow-xl transition-all border border-transparent group-hover:border-slate-100">
+                                <span class="text-xs font-bold text-medical-secondary uppercase tracking-widest mb-2 block">Paso 02</span>
+                                <h3 class="text-2xl font-bold text-gray-900 mb-3">Migración de Datos HL7</h3>
+                                <p class="text-gray-500">Nuestro equipo de ingeniería importa tus expedientes antiguos, limpiando duplicados y estandarizando formatos bajo norma HL7/FHIR.</p>
+                            </div>
+                        </div>
+
+                        <div class="relative group">
+                            <span class="absolute -left-[41px] top-0 w-5 h-5 rounded-full bg-white border-4 border-medical-primary group-hover:scale-125 transition-transform"></span>
+                            <div class="bg-slate-50 p-8 rounded-2xl group-hover:bg-white group-hover:shadow-xl transition-all border border-transparent group-hover:border-slate-100">
+                                <span class="text-xs font-bold text-medical-secondary uppercase tracking-widest mb-2 block">Paso 03</span>
+                                <h3 class="text-2xl font-bold text-gray-900 mb-3">Capacitación & Go Live</h3>
+                                <p class="text-gray-500">Sesiones de entrenamiento por roles. Lanzamiento controlado y soporte 24/7 durante la primera semana operativa.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5️⃣ TESTIMONIALS SECTION -->
+        <section id="reviews" class="py-24 bg-white border-t border-slate-100">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl lg:text-4xl font-bold text-center mb-16 text-medical-primary">Colegas y Pacientes Confían en Nosotros</h2>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Review 1 -->
+                    <div class="p-8 rounded-2xl bg-slate-50 border border-slate-100 hover:shadow-lg transition-all duration-300">
+                        <div class="flex items-center gap-1 text-yellow-400 mb-4 text-sm"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                        <p class="text-slate-600 mb-6 italic leading-relaxed">"He reducido mi tiempo administrativo en un 40%. La herramienta de IA para notas clínicas es impresionante, entiende perfectamente la terminología médica."</p>
+                        <div class="flex items-center gap-4">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" class="w-12 h-12 rounded-full object-cover border-2 border-white shadow-sm" alt="Dr">
+                            <div>
+                                <p class="font-bold text-slate-900">Dr. Carlos Méndez</p>
+                                <p class="text-xs text-medical-secondary font-semibold">Cardiólogo Intervencionista</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Review 2 -->
+                    <div class="p-8 rounded-2xl bg-slate-50 border border-slate-100 hover:shadow-lg transition-all duration-300">
+                        <div class="flex items-center gap-1 text-yellow-400 mb-4 text-sm"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                        <p class="text-slate-600 mb-6 italic leading-relaxed">"La calidad de video es superior a Zoom o Meet. Mis pacientes mayores lo encuentran muy fácil de usar porque no tienen que descargar nada."</p>
+                        <div class="flex items-center gap-4">
+                            <img src="https://randomuser.me/api/portraits/women/44.jpg" class="w-12 h-12 rounded-full object-cover border-2 border-white shadow-sm" alt="Dra">
+                            <div>
+                                <p class="font-bold text-slate-900">Dra. Ana Ruiz</p>
+                                <p class="text-xs text-medical-secondary font-semibold">Geriatra</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Review 3 -->
+                    <div class="p-8 rounded-2xl bg-slate-50 border border-slate-100 hover:shadow-lg transition-all duration-300">
+                        <div class="flex items-center gap-1 text-yellow-400 mb-4 text-sm"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                        <p class="text-slate-600 mb-6 italic leading-relaxed">"El retorno de inversión fue inmediato. Al ofrecer telemedicina pude captar pacientes internacionales que antes perdía."</p>
+                        <div class="flex items-center gap-4">
+                            <img src="https://randomuser.me/api/portraits/men/65.jpg" class="w-12 h-12 rounded-full object-cover border-2 border-white shadow-sm" alt="Dr">
+                            <div>
+                                <p class="font-bold text-slate-900">Dr. Miguel Torres</p>
+                                <p class="text-xs text-medical-secondary font-semibold">Cirujano Plástico</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6️⃣ PRICING SECTION -->
+        <section id="pricing" class="py-24 bg-medical-dark text-white relative overflow-hidden">
+            <!-- Background Decor (Matches Primary Theme) -->
+            <div class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+                <div class="absolute top-0 left-1/4 w-96 h-96 bg-medical-secondary/20 rounded-full blur-3xl"></div>
+                <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-medical-primary/40 rounded-full blur-3xl"></div>
+                <div class="absolute inset-0 bg-grid-pattern opacity-5"></div>
+            </div>
+
+            <div class="container mx-auto px-6 relative z-10">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-5xl font-bold mb-4 tracking-tight">Invierte en tu salud</h2>
+                    <p class="text-blue-200 text-lg font-light">Planes transparentes. Cancela cuando quieras. Acceso universal.</p>
+                    
+                    <!-- Toggle -->
+                    <div class="mt-8 inline-flex bg-white/5 backdrop-blur-md rounded-full p-1 border border-white/10">
+                        <button id="btn-monthly" onclick="setPricing('monthly')" class="px-6 py-2 rounded-full bg-medical-secondary text-white font-bold text-sm shadow-lg transition-all">Mensual</button>
+                        <button id="btn-annual" onclick="setPricing('annual')" class="px-6 py-2 rounded-full text-slate-300 font-medium text-sm hover:text-white transition-all">Anual (-20%)</button>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8 items-center max-w-6xl mx-auto">
+                    <!-- Basic Plan -->
+                    <div class="glass-panel-dark rounded-3xl p-8 hover:border-medical-secondary/50 transition-all duration-300">
+                        <h3 class="text-xl font-bold text-medical-light">Personal</h3>
+                        <div class="my-4">
+                            <span id="price-personal" class="text-4xl font-bold text-white">$29</span>
+                            <span id="period-personal" class="text-slate-400">/mes</span>
+                        </div>
+                        <p class="text-slate-400 text-sm mb-6">Para pacientes individuales y seguimiento básico.</p>
+                        <a href="#" class="block w-full py-3 rounded-xl border border-white/20 text-center font-bold hover:bg-white/10 text-white transition-all">Comenzar</a>
+                        <ul class="mt-8 space-y-3 text-sm text-slate-300">
+                            <li class="flex gap-2"><i class="fa-solid fa-check text-medical-secondary"></i> Historial Digital</li>
+                            <li class="flex gap-2"><i class="fa-solid fa-check text-medical-secondary"></i> 2 Consultas/mes</li>
+                            <li class="flex gap-2"><i class="fa-solid fa-check text-medical-secondary"></i> Recetas Digitales</li>
+                        </ul>
+                    </div>
+
+                    <!-- Pro Plan (Featured) -->
+                    <div class="rounded-3xl p-8 border-2 border-medical-secondary relative transform md:-translate-y-4 shadow-[0_0_40px_rgba(0,118,139,0.15)] bg-gradient-to-b from-[#112d69] to-medical-dark">
+                        <div class="absolute top-0 right-0 bg-medical-secondary text-white text-xs font-bold px-3 py-1 rounded-bl-xl rounded-tr-xl tracking-wider">MÁS POPULAR</div>
+                        <h3 class="text-xl font-bold text-white">Familiar</h3>
+                        <div class="my-4">
+                            <span id="price-family" class="text-5xl font-bold text-white">$79</span>
+                            <span id="period-family" class="text-slate-400">/mes</span>
+                        </div>
+                        <p class="text-blue-100 text-sm mb-6">Cobertura completa para hasta 5 miembros.</p>
+                        <a href="#" class="block w-full py-4 rounded-xl bg-medical-secondary text-center text-white font-bold hover:bg-medical-light hover:text-medical-dark transition-all shadow-lg shadow-medical-secondary/25">Prueba Gratis 14 Días</a>
+                        <ul class="mt-8 space-y-3 text-sm text-white">
+                            <li class="flex gap-2"><i class="fa-solid fa-check text-medical-light"></i> Consultas Ilimitadas</li>
+                            <li class="flex gap-2"><i class="fa-solid fa-check text-medical-light"></i> Asistente IA 24/7</li>
+                            <li class="flex gap-2"><i class="fa-solid fa-check text-medical-light"></i> Monitoreo Remoto</li>
+                            <li class="flex gap-2"><i class="fa-solid fa-check text-medical-light"></i> Prioridad en Urgencias</li>
+                        </ul>
+                    </div>
+
+                    <!-- Clinic Plan -->
+                    <div class="glass-panel-dark rounded-3xl p-8 hover:border-medical-secondary/50 transition-all duration-300">
+                        <h3 class="text-xl font-bold text-medical-light">Corporativo</h3>
+                        <div class="my-4"><span class="text-4xl font-bold text-white">Custom</span></div>
+                        <p class="text-slate-400 text-sm mb-6">Para empresas y grandes colectivos.</p>
+                        <a href="#" class="block w-full py-3 rounded-xl border border-white/20 text-center font-bold hover:bg-white/10 text-white transition-all">Contactar Ventas</a>
+                        <ul class="mt-8 space-y-3 text-sm text-slate-300">
+                            <li class="flex gap-2"><i class="fa-solid fa-check text-medical-secondary"></i> API Empresarial</li>
+                            <li class="flex gap-2"><i class="fa-solid fa-check text-medical-secondary"></i> Dashboard de Analytics</li>
+                            <li class="flex gap-2"><i class="fa-solid fa-check text-medical-secondary"></i> Gestor de Cuenta Dedicado</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7️⃣ CTA FINAL -->
+        <section class="py-32 relative overflow-hidden bg-medical-primary border-t border-white/10">
+            <!-- Decorative Circles -->
+            <div class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+                <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-medical-secondary/30 rounded-full blur-[120px]"></div>
+                <div class="absolute bottom-0 right-0 w-[400px] h-[400px] bg-medical-accent/20 rounded-full blur-[80px]"></div>
+            </div>
+
+            <div class="container mx-auto px-6 relative z-10 text-center">
+                <h2 class="text-4xl md:text-6xl font-bold text-white mb-8 tracking-tight">
+                    ¿Listo para elevar el estándar?
+                </h2>
+                <p class="text-xl text-blue-100 mb-12 max-w-2xl mx-auto font-light">
+                    Únete a las más de 500 instituciones que ya han digitalizado su futuro con nosotros.
+                </p>
+                
+                <div class="flex flex-col md:flex-row justify-center gap-6">
+                    <a href="https://app.medicalplatform.com/login" class="px-10 py-5 bg-white text-medical-primary font-bold text-lg rounded-full shadow-[0_0_40px_rgba(255,255,255,0.4)] hover:shadow-[0_0_60px_rgba(255,255,255,0.6)] hover:scale-105 transition-all duration-300">
+                        Acceder a la Plataforma
+                    </a>
+                    <a href="#" class="px-10 py-5 border border-white/30 text-white font-bold text-lg rounded-full hover:bg-white/10 transition-all">
+                        Hablar con Ventas
+                    </a>
+                </div>
+                
+                <p class="mt-8 text-sm text-blue-200/60">
+                    No credit card required for demo • HIPAA Compliant • Cancel anytime
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <!-- 8️⃣ FOOTER -->
+    <footer class="bg-medical-dark pt-20 pb-10 text-slate-300 border-t border-white/5 font-light text-sm">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-10 mb-16">
+                
+                <!-- Brand Column -->
+                <div class="col-span-2 lg:col-span-2">
+                    <img src="https://i.imgur.com/te3R5Ud.png" alt="Medical Logo" class="h-8 mb-6 opacity-90">
+                    <p class="mb-6 max-w-sm text-slate-400">
+                        Revolucionando la atención médica a través de la tecnología. Comprometidos con la ética, la seguridad y la excelencia clínica.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-white/20 transition-colors"><i class="fa-brands fa-linkedin-in"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-white/20 transition-colors"><i class="fa-brands fa-twitter"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-white/20 transition-colors"><i class="fa-brands fa-instagram"></i></a>
+                    </div>
+                </div>
+
+                <!-- Column 1 -->
+                <div>
+                    <h4 class="text-white font-bold mb-6">Plataforma</h4>
+                    <ul class="space-y-4">
+                        <li><a href="#" class="hover:text-medical-light transition-colors">Para Médicos</a></li>
+                        <li><a href="#" class="hover:text-medical-light transition-colors">Para Pacientes</a></li>
+                        <li><a href="#" class="hover:text-medical-light transition-colors">Enterprise</a></li>
+                        <li><a href="#" class="hover:text-medical-light transition-colors">Precios</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 2 -->
+                <div>
+                    <h4 class="text-white font-bold mb-6">Recursos</h4>
+                    <ul class="space-y-4">
+                        <li><a href="#" class="hover:text-medical-light transition-colors">Blog</a></li>
+                        <li><a href="#" class="hover:text-medical-light transition-colors">Casos de Éxito</a></li>
+                        <li><a href="#" class="hover:text-medical-light transition-colors">Ayuda</a></li>
+                        <li><a href="#" class="hover:text-medical-light transition-colors">API Docs</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3 -->
+                <div>
+                    <h4 class="text-white font-bold mb-6">Legal</h4>
+                    <ul class="space-y-4">
+                        <li><a href="#" class="hover:text-medical-light transition-colors">Privacidad</a></li>
+                        <li><a href="#" class="hover:text-medical-light transition-colors">Términos</a></li>
+                        <li><a href="#" class="hover:text-medical-light transition-colors">Seguridad</a></li>
+                        <li><a href="#" class="hover:text-medical-light transition-colors">Compliance</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p>&copy; 2026 Medical Platform Inc. All rights reserved.</p>
+                <div class="flex items-center gap-4 mt-4 md:mt-0">
+                    <div class="flex items-center gap-2 px-3 py-1 rounded-full bg-green-500/10 border border-green-500/20">
+                        <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                        <span class="text-green-500 font-bold text-xs">All Systems Operational</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- LOGIC & SCRIPTS -->
+    <script>
+        // --- NAVBAR SCROLL EFFECT ---
+        const navbar = document.getElementById('navbar');
+        const navBg = document.getElementById('nav-bg');
+        const logoWhite = document.querySelector('.logo-white');
+        const logoBlue = document.querySelector('.logo-blue');
+        const navItems = document.querySelectorAll('.nav-item');
+        const navPill = document.querySelector('.nav-pill-container');
+        const mobileToggle = document.getElementById('mobile-toggle');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                // Scrolled State
+                navbar.classList.add('py-2');
+                navbar.classList.remove('py-0');
+                navBg.classList.add('bg-white/90', 'backdrop-blur-lg', 'shadow-sm');
+                navBg.classList.remove('bg-white/0');
+                
+                logoWhite.classList.add('opacity-0');
+                logoBlue.classList.remove('opacity-0');
+                
+                navPill.classList.remove('bg-white/10', 'border-white/20');
+                navPill.classList.add('bg-gray-100', 'border-gray-200');
+
+                navItems.forEach(item => {
+                    item.classList.remove('text-white', 'hover:bg-white/20');
+                    item.classList.add('text-gray-700', 'hover:bg-gray-200');
+                });
+
+                // Si el menú NO está abierto, cambia el color a azul. Si está abierto, se mantiene blanco.
+                if(!mobileMenu.classList.contains('translate-x-full')) {
+                    mobileToggle.classList.add('text-white');
+                    mobileToggle.classList.remove('text-medical-primary');
+                } else {
+                    mobileToggle.classList.remove('text-white');
+                    mobileToggle.classList.add('text-medical-primary');
+                }
+
+            } else {
+                // Top State
+                navbar.classList.remove('py-2');
+                navbar.classList.add('py-0');
+                navBg.classList.remove('bg-white/90', 'backdrop-blur-lg', 'shadow-sm');
+                navBg.classList.add('bg-white/0');
+                
+                logoWhite.classList.remove('opacity-0');
+                logoBlue.classList.add('opacity-0');
+                
+                navPill.classList.add('bg-white/10', 'border-white/20');
+                navPill.classList.remove('bg-gray-100', 'border-gray-200');
+
+                navItems.forEach(item => {
+                    item.classList.add('text-white', 'hover:bg-white/20');
+                    item.classList.remove('text-gray-700', 'hover:bg-gray-200');
+                });
+
+                mobileToggle.classList.add('text-white');
+                mobileToggle.classList.remove('text-medical-primary');
+            }
+        });
+
+        // --- MOBILE MENU ---
+        const menuBtn = document.getElementById('mobile-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+        let isMenuOpen = false;
+
+        menuBtn.addEventListener('click', () => {
+            isMenuOpen = !isMenuOpen;
+            if (isMenuOpen) {
+                mobileMenu.classList.remove('translate-x-full');
+                menuBtn.innerHTML = '<i class="fa-solid fa-xmark"></i>';
+                
+                // Forzar color blanco y posición superior cuando el menú está abierto
+                menuBtn.classList.remove('text-medical-primary');
+                menuBtn.classList.add('text-white');
+                
+                document.body.style.overflow = 'hidden';
+            } else {
+                mobileMenu.classList.add('translate-x-full');
+                menuBtn.innerHTML = '<i class="fa-solid fa-bars-staggered"></i>';
+                
+                // Restaurar color según scroll
+                if (window.scrollY > 50) {
+                    menuBtn.classList.add('text-medical-primary');
+                    menuBtn.classList.remove('text-white');
+                }
+                
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                isMenuOpen = false;
+                mobileMenu.classList.add('translate-x-full');
+                menuBtn.innerHTML = '<i class="fa-solid fa-bars-staggered"></i>';
+                document.body.style.overflow = 'auto';
+                if (window.scrollY > 50) {
+                    menuBtn.classList.add('text-medical-primary');
+                    menuBtn.classList.remove('text-white');
+                }
+            });
+        });
+
+        // --- PRICING LOGIC ---
+        function setPricing(mode) {
+            const btnMonthly = document.getElementById('btn-monthly');
+            const btnAnnual = document.getElementById('btn-annual');
+            const pricePersonal = document.getElementById('price-personal');
+            const periodPersonal = document.getElementById('period-personal');
+            const priceFamily = document.getElementById('price-family');
+            const periodFamily = document.getElementById('period-family');
+
+            if (mode === 'annual') {
+                // Personal: $29 * 12 = 348 - 20% (69.6) = 278.4 -> $279
+                pricePersonal.innerText = '$279';
+                periodPersonal.innerText = '/año';
+
+                // Family: $79 * 12 = 948 - 20% (189.6) = 758.4 -> $759
+                priceFamily.innerText = '$759';
+                periodFamily.innerText = '/año';
+
+                // Styles
+                btnMonthly.classList.replace('bg-medical-secondary', 'text-slate-300');
+                btnMonthly.classList.remove('text-white', 'font-bold', 'shadow-lg');
+                btnMonthly.classList.add('hover:text-white');
+
+                btnAnnual.classList.replace('text-slate-300', 'bg-medical-secondary');
+                btnAnnual.classList.add('text-white', 'font-bold', 'shadow-lg');
+                btnAnnual.classList.remove('hover:text-white');
+
+            } else {
+                // Reset Monthly
+                pricePersonal.innerText = '$29';
+                periodPersonal.innerText = '/mes';
+
+                priceFamily.innerText = '$79';
+                periodFamily.innerText = '/mes';
+
+                // Styles
+                btnAnnual.classList.replace('bg-medical-secondary', 'text-slate-300');
+                btnAnnual.classList.remove('text-white', 'font-bold', 'shadow-lg');
+                btnAnnual.classList.add('hover:text-white');
+
+                btnMonthly.classList.replace('text-slate-300', 'bg-medical-secondary');
+                btnMonthly.classList.add('text-white', 'font-bold', 'shadow-lg');
+                btnMonthly.classList.remove('hover:text-white');
+            }
+        }
+
+        // --- OBSERVER FOR REVEAL ANIMATIONS ---
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('opacity-100', 'translate-y-0');
+                    entry.target.classList.remove('opacity-0', 'translate-y-10');
+                }
+            });
+        });
+        
+        document.querySelectorAll('.animate-slide-up').forEach((el) => observer.observe(el));
+
+    </script>
+</body>
+</html>
